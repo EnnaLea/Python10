@@ -21,28 +21,16 @@ def mage_stats(mages: list[dict]) -> dict[str, int | float]:
     }
 
 
-artifacts = [
-    {"name": "Excalibur", "power": 95, "type": "sword"},
-    {"name": "Magic Ring", "power": 60, "type": "jewelry"},
-    {"name": "Phoenix Feather", "power": 88, "type": "material"},
-    {"name": "Crystal Ball", "power": 72, "type": "tool"},
-]
-
-
-mages = [
-    {"name": "Merlin", "power": 95},
-    {"name": "Gandalf", "power": 88},
-    {"name": "Saruman", "power": 92},
-    {"name": "Radagast", "power": 45},
-]
-
-
-spells = ["fireball", "heal", "shield", "teleport"]
-
-
 def main() -> None:
+    artifacts_name = [
+        {"name": "Excalibur", "power": 95, "type": "sword"},
+        {"name": "Magic Ring", "power": 60, "type": "jewelry"},
+        {"name": "Phoenix Feather", "power": 88, "type": "material"},
+        {"name": "Crystal Ball", "power": 72, "type": "tool"},
+    ]
+    spells = ["fireball", "heal", "shield", "teleport"]
     print("Testing artifact sorter...")
-    artifacts_sorted = artifact_sorter(artifacts)
+    artifacts_sorted = artifact_sorter(artifacts_name)
     print(f"{artifacts_sorted[0]["name"]}"
           f"({artifacts_sorted[0]["power"]} power)"
           f" comes before {artifacts_sorted[1]["name"]}"

@@ -18,20 +18,18 @@ def base_power(target: str, power: int) -> bool:
 
 
 def spell_combiner(spell1: Callable[[str, int], str],
-                   spell2: Callable[[str, int],
-                                    str]) -> Callable[[str, int],
-                                                      str]:
-    def combined(target: str, power: int) -> str:
-        return f"{spell1(target, power)}, {spell2(target, power)}"
+                   spell2: Callable[[str, int], str]
+                   ) -> Callable[[str, int], tuple[str, str]]:
+    def combined(target: str, power: int) -> tuple[str, str]:
+        return (spell1(target, power), spell2(target, power))
     return combined
 
 
 def power_amplifier(base_spell: Callable[[str, int], str],
                     multiplier: int) -> Callable:
-    def mega_fireball(target: str, power: int) -> str:
-        pow_amplified = power * multiplier
-        return f"Original: {power}, Amplified: {pow_amplified}"
-    return mega_fireball
+    def amplified_spell(target: str, power: int) -> str:
+        return base_spell(target, power * multiplier)
+    return amplified_spell
 
 
 def conditional_caster(condition: Callable[[str, int], bool],
@@ -41,7 +39,7 @@ def conditional_caster(condition: Callable[[str, int], bool],
     def new_spell(target: str, power: int) -> str:
         if condition(target, power):
             return spell(target, power)
-        return "Spell frizzled"
+        return "Spell fizzled"
     return new_spell
 
 
@@ -55,7 +53,8 @@ def spell_sequence(spells: list[Callable[[str, int], str]]
 def main() -> None:
     print("Testing spell combiner...")
     spell_combo = spell_combiner(fireball, heal)
-    print("Combined spell result:", spell_combo("Dragon", 20))
+    result = spell_combo("Dragon", 20)
+    print(f"Combined spell result: {result[0]}, {result[1]}")
     print("\n")
     super_spell = power_amplifier(fireball, 3)
     print("Testing power amplifier...")
