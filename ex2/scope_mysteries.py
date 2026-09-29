@@ -1,4 +1,5 @@
 from collections.abc import Callable
+from typing import Any
 
 
 def mage_counter() -> Callable[[], int]:
@@ -28,7 +29,7 @@ def enchantment_factory(enchantment_type: str
     return enchanted_item
 
 
-def memory_vault() -> dict[str, Callable]:
+def memory_vault() -> dict[str, Callable[..., Any]]:
     memory: dict[str, str] = {}
 
     def store(key: str, value: str) -> None:
